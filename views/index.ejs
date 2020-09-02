@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link href="/views/css/style.css" type="text/css" rel="stylesheet"/>
+    <link href="/views/css/stylePerso.css" type="text/css" rel="stylesheet"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChillingBook</title>
+</head>
+<body>
+    <div class="container fond">
+
+        <div class="row center-block mt-3">
+            <div class="col-12">
+                <header>
+                    <img src="/images/header.png" alt="header" class="image"/>
+                </header>
+            </div>
+        </div>
+
+        <div class="row mt-4 mb-3">
+                <nav class="col navbar navbar-expand-lg couleur-sommaire">
+                    <button class="navbar-toggler bg-dark" type="button" data-toggle="collapse" data-target="#navbarContent">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div id="navbarContent" class="collapse navbar-collapse">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item"><a href="/sommaire" class="nav-link couleur-texte">Sommaire</a></li>
+                            <li class="nav-item"><a href="https://www.goodreads.com/user/show/88305983-chillingbook" class="nav-link couleur-texte">GoodReads</a></li>
+                            <li class="nav-item"><a href="https://www.tvtime.com/fr/user/1618343/profile" class="nav-link couleur-texte">TV Show Time</a></li>
+                            <li class="nav-item"><a href="/send/contact" class="nav-link couleur-texte">Me contacter</a></li>
+                        </ul>
+                    </div>  
+                </nav>
+        </div>
+
+        <div class="row text-center">
+            <div class="col-12 col-lg-3">
+                <% presentations.forEach(function(presentation) { %>
+                <div class="card mb-3">
+                    <div class="card-body text-left text-lg-center">
+                        <h5 class="card-title"><%= presentation.title %></h5>
+                        <p class="card-text px-1"><%- presentation.description %></p>
+                    </div>
+                </div>
+                <% }); %>
+            </div>
+            <div class="col-12 col-lg-6 mb-3">
+                <% articles.forEach(function(article) { %>
+                <div class="card mt-3 mb-3">
+                    <div class="card-body text-lg-center suite">
+                        <h5 class="card-title"><%= article.title %></h5>
+                        <div class="card-subtitle text-muted mb-2">
+                            <%= article.createdAt.toLocaleDateString() %>
+                          </div>
+                        <img class="card-img" src="<%= article.imageUrl %>" alt="Photo de l'article" />
+                        <p class="card-text"><%- article.description %></p>
+                    </div>
+                    <div style="margin: 10px; margin-bottom: 15px;">
+                        <a href="/<%= article.slug %>" class="btn bouton">Lire la suite...</a>
+                    </div>
+                </div>
+                <% }) %>
+            </div>
+            <div class="col-12 col-lg-3">
+                <div class="card">
+                    <div class="card-body text-lg-center marge-int">
+                        <h5 class="card-title mt-3">Instagram</h5>
+                        <p class="card-text">
+                            <div id="instafeed-container"></div>
+                        </p>
+                    </div>
+                </div>
+
+
+                <button type="button" class="btn bouton mt-5" id="btnAbonner">S'abonner</button>
+                <div id="form"></div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-light mt-5">
+        <div class="container">
+            <div class="row pt-4 pb-3">
+                <div class="col">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item text-muted" style="font-size: x-small;">Site crée par <a href="#">Imad ELMAHRAD</a></li>
+                </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script src="/views/dynamicjs/forms.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/stevenschobert/instafeed.js@2.0.0rc1/src/instafeed.min.js"></script>
+  <script type="text/javascript" src="/views/dynamicjs/insta.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+.couleur-sommaire {
+    background-color: #925F31;
+    border-radius: 10px;
+}
+
+.couleur-texte {
+    color: #57381C;
+}
+
+.fond {
+    background-color: #EBE9EE;
+
+}
+
+.image {
+    width: 100%;
+}
+
+body {
+    background-color: #EBE9EE;
+}
+
+.fond-blanc {
+    background-color: #fff;
+}
+
+a img {
+    width: 50%;
+    margin: 4px;
+}
+
+.marge-int {
+    padding: 0px;
+}
+
+.btn-primary {
+   background-color: #925F31;
+   color: #57381C;
+   border-color: #925F31; 
+}
+
+.bouton {
+    background-color: #925F31;
+    color: #57381C;
+    border-color: #925F31;
+}
+
+.suite {
+    overflow: hidden;
+    height: 20rem;
+}
+
+.config-btn {
+    margin-left: 130px;
+    margin-right: 130px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

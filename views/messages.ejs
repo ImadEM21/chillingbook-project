@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link href="/views/css/style.css" type="text/css" rel="stylesheet"/>
+    <link href="/views/css/stylePerso.css" type="text/css" rel="stylesheet"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes messages</title>
+</head>
+<body>
+    <div class="container fond">
+
+        <div class="row center-block mt-3">
+            <div class="col-12">
+                <header>
+                    <img src="/images/header.png" alt="header" class="image"/>
+                </header>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <h1>Mes messages</h1>
+            </div>
+        </div>
+
+        <div class="row mt-4 mb-3">
+                <nav class="col navbar navbar-expand-lg couleur-sommaire">
+                    <button class="navbar-toggler bg-dark" type="button" data-toggle="collapse" data-target="#navbarContent">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div id="navbarContent" class="collapse navbar-collapse">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item"><a href="/login" class="nav-link couleur-texte">Acceuil</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link couleur-texte">Sommaire</a></li>
+                            <li class="nav-item"><a href="https://www.goodreads.com/user/show/88305983-chillingbook" class="nav-link couleur-texte">GoodReads</a></li>
+                            <li class="nav-item"><a href="https://www.tvtime.com/fr/user/1618343/profile" class="nav-link couleur-texte">TV Show Time</a></li>
+                            <li class="nav-item active"><a href="#" class="nav-link couleur-texte">Mes messages</a></li>
+                        </ul>
+                    </div>  
+                </nav>
+        </div>
+        <div class="row text-center">
+            <div class="col-12 mb-3">
+                <% messages.forEach(function(message) { %>
+                <div class="card mt-3 mb-3">
+                    <div class="card-body text-lg-center">
+                        <h5 class="card-title"><%= message.name %></h5>
+                        <div class="card-subtitle text-muted mb-2">
+                            <%= message.email %>
+                          </div>
+                        <p class="card-text"><%= message.message %></p>
+                        <form action="/login/msg/<%= message.id %>?_method=DELETE" method="POST" class="d-line">
+                            <button type="submit" class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </div>
+                </div>
+                <% }); %>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">Pages</li>
+                    <li class="list-inline-item"><a href="#">1</a></li>
+                    <li class="list-inline-item">&middot;</li>
+                    <li class="list-inline-item"><a href="#">2</a></li>
+                    <li class="list-inline-item">&middot;</li>
+                    <li class="list-inline-item"><a href="#">3</a></li>
+                    <li class="list-inline-item"><a href="#">... 15</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>
