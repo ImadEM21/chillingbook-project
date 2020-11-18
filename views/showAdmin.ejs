@@ -9,12 +9,6 @@
 </head>
 <body>
     <div class="container fond">
-        <div class="row">
-            <div class="col">
-                <a href="/admin" class="btn btn-primary mt-3">Admin</a>
-            </div>
-        </div>
-
         <div class="row center-block mt-3">
             <div class="col-12">
                 <header>
@@ -62,6 +56,68 @@
                 <br />
                 <a href="/login" class="btn btn-secondary">Tous les articles</a>
                 <a href="/login/edit/<%= article.id %>" class="btn btn-info">Modifier</a>
+
+                <div class="panel panel-default widget mt-4" id="allComments">
+                    <div class="panel-heading">
+                        <span class="glyphicon glyphicon-comment"></span>
+                        <h3 class="panel-title">Commentaires: <span class="mx-4"><%= article.comments.length %></span></h3>
+                    </div>
+
+                    <div class="panel-body">
+                        <% if (article.comments.length > 0) { %>
+                        <ul class="list-group">
+                            <% article.comments.forEach(function(comment) { %>
+                            <li class="list-group-item">
+                                <div class="text-left">
+                                        <div>
+                                            <%= comment.title %>
+                                            <div class="mic-info text-muted">
+                                                Par: <%= comment.pseudo %> le <%= comment.created.toLocaleDateString() %>
+                                            </div>
+                                        </div>
+                                        <div class="comment-text">
+                                            <p><%= comment.comment %></p>
+                                        </div>
+
+                                        <% if (comment.reply.length > 0) { %>
+                                            <div>
+                                            <ul>
+                                                <% comment.reply.forEach(function(reply) { %>
+                                                <li class="my-3">
+                                                    <div>
+                                                        <%= reply.pseudo %>
+                                                        <div class="mic-info text-muted">
+                                                            <%= reply.create.toLocaleDateString() %>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-text">
+                                                        <%= reply.reply %>
+                                                    </div>
+                                                    <form action="/<%= article.id %>/<%= comment.id %>/<%= reply.id %>?_method=DELETE" method="POST" class="d-line">
+                                                        <button type="submit" class="btn btn-danger">X</button>
+                                                    </form>
+                                                </li>
+                                                <% }); %>
+                                            </ul>
+                                            </div>
+                                            <% } %>
+
+                                        <form action="/<%= article.id %>/<%= comment.id %>?_method=DELETE" method="POST" class="d-line">
+                                            <button type="submit" class="btn btn-danger">X</button>
+                                        </form>
+                                        <button type="button" class="btn btn-success" id="<%= article.id %>/<%= comment.id %>">Répondre</button>
+                                </div>
+                            </li>
+                            <% }); %>
+                        </ul>
+                        <% } else { %>
+                            <p>
+                                Il n'y a pas encore de commentaires.
+                            </p>
+                        <% } %>
+                    </div>
+                </div>
+
             </div>
             <div class="col-12 col-lg-3">
                 <div class="card">
@@ -93,10 +149,12 @@
 
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/gh/stevenschobert/instafeed.js@2.0.0rc1/src/instafeed.min.js"></script>
-  <script type="text/javascript" src="/views/dynamicjs/insta.js"></script>
+    <script src="/views/dynamicjs/jquery-3.5.1.min.js"></script>
+    <script src="/views/dynamicjs/popper.min.js"></script>
+    <script src="/views/dynamicjs/bootstrap.min.js"></script>
+    <script src="/views/dynamicjs/instafeed.min.js"></script>
+    <script type="text/javascript" src="/views/dynamicjs/insta.js"></script>
+    <script src="/views/dynamicjs/comments.js"></script>
+    <script src="/views/dynamicjs/formReply.js"></script>
 </body>
 </html>

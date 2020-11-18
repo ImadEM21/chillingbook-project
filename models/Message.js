@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { truncate } = require('fs');
 
 const messageSchema = mongoose.Schema({
     email: {type: String, required: true},

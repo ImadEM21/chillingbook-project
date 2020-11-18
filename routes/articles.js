@@ -17,14 +17,27 @@ router.get('/login/:slug', auth, articleCtrl.getAdminSlug);
 router.get('/login/edit/:id', auth, articleCtrl.getModifyArticle);
 router.put('/:id', auth, multer, articleCtrl.modifyArticle);
 router.delete('/login/:id', auth, multer, articleCtrl.deleteArticle);
+
+router.post('/:id', articleCtrl.createComment);
+router.delete('/:id/:com', auth, articleCtrl.deleteComment);
+router.post('/reply/:id/:com', auth, articleCtrl.replyComment);
+router.delete('/:id/:com/:rep', auth, articleCtrl.deleteReply);
+
+router.post('/postlike/:id', articleCtrl.like);
+router.post('/postdislike/:id', articleCtrl.dislike);
+
+router.get('/send/contact', articleCtrl.getContact);
+
+router.get('/login/get/messages', auth, articleCtrl.getMessages);
+router.post('/login/get/messages', articleCtrl.createMessage);
+router.post('/login/msg/:id', auth, articleCtrl.deleteMessage);
+
+
 router.get('/login/modif/presentation', auth, presentationCtrl.newPresentation);
 router.get('/login/modif/modify-presentation/:id', auth, presentationCtrl.getModifyPresentation);
 router.delete('/:id', auth, presentationCtrl.deletePresentation);
-router.get('/id/signup', userCtr.getSignUp);
+
+
 router.get('/id/login', userCtr.getLogIn);
-router.get('/send/contact', articleCtrl.getContact);
-router.get('/login/get/messages', auth, articleCtrl.getMessages);
-router.post('/login/get/messages', articleCtrl.createMessage);
-router.delete('/login/msg/:id', auth, articleCtrl.deleteMessage);
 
 module.exports = router;

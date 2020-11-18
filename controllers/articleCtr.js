@@ -27,7 +27,7 @@ exports.createArticle = async (req, res, next) => {
         const article = new Article({
             title: req.body.title,
             description: req.body.description,
-            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+            imageUrl: `https://www.chillingbook.fr/images/${req.file.filename}`
         });
         await article.save()
         .then(() => res.redirect(`${article.slug}`))
@@ -73,7 +73,7 @@ exports.modifyArticle = async (req, res) => {
         const article = { 
             title: req.body.title,
             description: req.body.description,
-            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+            imageUrl: `https://www.chillingbook.fr/images/${req.file.filename}`
         };
         try {
             await Article.updateOne({_id: req.params.id}, {...article, _id: req.params.id})
@@ -102,12 +102,49 @@ exports.deleteArticle = async (req, res) => {
             const filename = article.imageUrl.split('/images')[1];
             fs.unlink(`images/${filename}`, () => {
                 Article.deleteOne({_id: req.params.id})
-                .then(() => res.redirect('login'))
+                .then(() => res.redirect('/login'))
                 .catch(error => res.status(400).json({error}));
             });
         })
         .catch(error => res.status(500).json({error}));
 };
+
+
+
+exports.createComment = (req, res, next) => {
+    const comment = {
+        pseudo: req.body.pseudo,
+        title: req.body.title,
+        comment: req.body.comment
+    };
+    Article.findByIdAndUpdate(req.params.id, {$push: {comments: comment}})
+    .then(() => res.status(201).json({message: "Commentaire ajouté avec succès"}))
+    .catch(() => res.status(500).json({message: "Echec"}));
+};
+
+
+exports.deleteComment = (req, res, next) => {
+    const article = Article.findById(req.params.id);
+    Article.findByIdAndUpdate(req.params.id, {$pull: {comments: {_id: req.params.com}}})
+    .then(() => res.redirect(`/login`))
+    .catch(err => next(err));
+};
+
+exports.replyComment = (req, res, next) => {
+    const reply = {
+        reply: req.body.rep
+    };
+    Article.updateOne({_id: req.params.id, "comments._id": req.params.com}, {$push: {"comments.$.reply": reply}})
+    .then(() => res.redirect('/login'))
+    .catch(err => next(err));
+};
+
+exports.deleteReply = (req, res, next) => {
+    Article.updateOne({_id: req.params.id, "comments._id": req.params.com}, {$pull: {"comments.$.reply": {_id: req.params.rep}}})
+    .then(() => res.redirect('/login'))
+    .catch(err => next(err));
+};
+
 
 exports.getContact = (req, res) => {
     res.render('contact', {message: new Message() });
@@ -116,7 +153,6 @@ exports.getContact = (req, res) => {
 exports.getMessages = async (req, res) => {
     await Message.find()
     .then(messages => {
-        console.log(messages);
         res.render('messages', {messages: messages});
     })
     .catch(error => res.status(400).json({error}));
@@ -124,21 +160,32 @@ exports.getMessages = async (req, res) => {
 
 exports.createMessage = async (req, res) => {
     res.setHeader('Content-Type', 'application/json');
-    console.log(req.body);
-    req.message = new Message();
-    let message = req.message;
-    message.email = req.body.email;
-    message.name = req.body.name;
-    message.message = req.body.message;
-    try {
-      message = await message.save();
-      res.redirect(`/`);
-    } catch (e) {
-      res.status(400).json({e});
-    }
+    const message = new Message({
+        email: req.body.email,
+        name: req.body.name,
+        message: req.body.message
+    });
+    
+    await message.save()
+      .then(() => res.redirect(`/`))
+      .catch(error => res.status(400).json({error}));
 };
 
-exports.deleteMessage = async (req, res) => {
-    await Message.findByIdAndDelete(req.params.id);
-    res.redirect('/login');
+exports.deleteMessage = async (req, res, next) => {
+    await Message.findByIdAndDelete(req.params.id)
+    .then(() => res.redirect('/login'))
+    .catch(err => next(err));
 };
+
+
+exports.like = (req, res, next) => {
+    Article.findByIdAndUpdate(req.params.id, {$inc: {likes: 1}})
+    .then(() => res.status(201).json({message: "Like ajouté"}))
+    .catch(err => next(err));
+};
+
+exports.dislike = (req, res, next) => {
+  Article.findByIdAndUpdate(req.params.id, {$inc: {likes: -1}})
+  .then(() => res.status(201).json({message: "Like annulé"}))
+  .catch(err => next(err));
+}

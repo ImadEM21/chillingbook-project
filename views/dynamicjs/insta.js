@@ -3,6 +3,6 @@ var userFeed = new Instafeed({
     target: "instafeed-container",
     resolution: 'low_resolution',
     limit: 2,
-    accessToken: 'IGQVJVSXp5Tl8tUlM5YnVvck13ZAHUyQzBXRV9rUnJOQW1sZAHJ0b0FHbFd2S2FRZA05iaTE5UktSMUJUX1FIU1RlTUJpVVpCdnlLdzZAmUGpzd0tpS3VrMjdiUk9YUnZAOVlBCVnI2TG1rMnJiUURXbVk2SAZDZD'
+    accessToken: 'IGQVJXVVpzc3llYVpfSUU0YUtzazdvQm1CUHpyTl83cTViRTl2NjVTMEJnYTBQT09vYjVPZAXhRRmhLUzF4VF9BSmdDeUhkcldoN0lMTlo1T0VFNy1rcTh2N2R5bmRJZAGRuSWpvZAmxnQTdaWHV3Ty1FdgZDZD'
 });
 userFeed.run();

@@ -39,7 +39,6 @@ btn.addEventListener("click", (e) => {
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         const userEmail = $('#email').val();
-        console.log(userEmail);
         
         $.ajax({
             url: '/email',

@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Cookies = require('cookies');
-
 const User = require('../models/User');
 
 
@@ -11,9 +10,13 @@ exports.login = (req, res, next) => {
         if (!user) {
             return res.status(401).json({message: "Utilisateur pas trouvé!"});
         }
-        bcrypt.compare(req.body.password, user.password, async valid => {
-            if (!valid) {
-                return res.status(401).json({message: "Mot de passe incorrecte"});
+        bcrypt.compare(req.body.password, user.password, (err, valid) => {
+            if(err) {
+                next(err);
+            }
+            
+            if (valid == false) {
+                return res.status(401).json({message: "Mot de passe incorrect"});
             }
             
             const token = jwt.sign(
@@ -32,10 +35,12 @@ exports.login = (req, res, next) => {
     .catch(error => res.status(500).json({ error }));
 };
 
-exports.getSignUp = (req, res) => {
-    res.render('signup', {user: new User() });
-};
+
 
 exports.getLogIn = (req, res) => {
     res.render('login');
+};
+
+exports.getSignup = (req, res) => {
+    res.render('signup');
 };
