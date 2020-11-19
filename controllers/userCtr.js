@@ -21,7 +21,7 @@ exports.login = (req, res, next) => {
             
             const token = jwt.sign(
                 {userId: user._id},
-                '2hU8pMq8OVN2mlJz9KwNGfksEWtIIGOJZNxm3pkoW3c88i3NhMgjE8dJHPY5DSOGDMnraXhhwUNxLuAK29WrecXKuUjqOscJcZhq',
+                'RANDOM_WEB_TOKEN',
                 {expiresIn: '3h'}
             );
             new Cookies(req, res).set('access_token', token, {
