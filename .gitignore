@@ -1,6 +1,0 @@
-node_modules
-.vscode
-views/dynamicjs/*.min.js
-views/css/style.css
-views/css/style.css.map
-views/scss
