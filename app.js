@@ -13,7 +13,7 @@ const app = express();
 
 // Connexion à MongoDB en prod (cloud)-->
 /*
-mongoose.connect('mongodb+srv://imad21:Wqs79xwqs79x@cluster0.r2pkt.mongodb.net/<dbname>?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://username:password@cluster0.r2pkt.mongodb.net/<dbname>?retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
